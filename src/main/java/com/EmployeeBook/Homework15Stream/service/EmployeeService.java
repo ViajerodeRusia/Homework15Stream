@@ -22,5 +22,7 @@ public interface EmployeeService {
     Employee getEmployeeWithMinSalary();
     Employee getEmployeeWithMaxSalary();
     String addEmployee(String name, String surname, Integer department, Integer salary);
+    Employee getEmployeeWithMinSalaryDep(Integer department);
+    Employee getEmployeeWithMaxSalaryDep(Integer department);
 
 }

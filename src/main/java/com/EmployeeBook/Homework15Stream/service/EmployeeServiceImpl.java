@@ -1,5 +1,6 @@
 package com.EmployeeBook.Homework15Stream.service;
 import com.EmployeeBook.Homework15Stream.domain.Employee;
+import com.EmployeeBook.Homework15Stream.exception.EmployeeAlreadyAddedException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,9 +14,32 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public String addEmployee(String name, String surname, Integer department, Integer salary) {
-        employees.add(new Employee(name, surname, department, salary));
-        return "Новый сотрудник успешно добавлен";
+        if(employees.stream()
+                        .filter(e -> e.getName().equals(name) && e.getSurname().equals(surname))
+                        .findFirst()
+                        .isEmpty()) {
+            employees.add(new Employee(name, surname, department, salary));
+            return "Новый сотрудник успешно добавлен";
+        }
+        throw new EmployeeAlreadyAddedException();
     }
+
+    @Override
+    public Employee getEmployeeWithMinSalaryDep(Integer department) {
+        return employees.stream()
+                .filter(e -> e.getDepartment().equals(department))
+                .min(Comparator.comparingInt(e -> e.getSalary()))
+                .get();
+    }
+
+    @Override
+    public Employee getEmployeeWithMaxSalaryDep(Integer department) {
+        return employees.stream()
+                .filter(e -> e.getDepartment().equals(department))
+                .max(Comparator.comparingInt(e -> e.getSalary()))
+                .get();
+    }
+
     @Override
     public List<Employee> getAllEmployees() {
         return employees;

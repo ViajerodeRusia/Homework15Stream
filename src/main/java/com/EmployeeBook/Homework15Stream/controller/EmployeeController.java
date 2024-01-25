@@ -37,4 +37,12 @@ public class EmployeeController {
                               @RequestParam ("department") Integer department, @RequestParam ("salary") Integer salary) {
         return employeeService.addEmployee(name, surname, department, salary);
     }
+    @GetMapping(path = "/minSalaryDep")
+    public Employee getEmployeeWithMinSalaryDep(@RequestParam ("department") Integer department) {
+        return employeeService.getEmployeeWithMinSalaryDep(department);
+    }
+    @GetMapping(path = "/maxSalaryDep")
+    public Employee getEmployeeWithMaxSalaryDep(@RequestParam ("department") Integer department) {
+        return employeeService.getEmployeeWithMaxSalaryDep(department);
+    }
 }
