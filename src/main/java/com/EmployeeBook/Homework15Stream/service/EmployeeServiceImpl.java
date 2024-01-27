@@ -23,21 +23,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         throw new EmployeeAlreadyAddedException();
     }
 
-    public List<Employee> AllEmployees() {
-        return employees;
-    }
-    public List<Employee> AllEmployeesOfDepartment(Integer department) {
-        return employees.stream()
-                .filter(e -> e.getDepartment().equals(department))
-                .collect(Collectors.toList());
-    }
-
     @Override
-    public List<Employee> getAllEmployees(Integer command, Integer department) {
-        return switch (command) {
-            case 1 -> AllEmployees();
-            case 2 -> AllEmployeesOfDepartment(department);
-            default -> throw new RuntimeException();
-        };
+    public List<Employee> getAllEmployees() {
+        return employees;
     }
 }

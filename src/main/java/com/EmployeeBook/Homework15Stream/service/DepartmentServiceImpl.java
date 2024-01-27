@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
@@ -16,7 +17,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
     @Override
     public Employee getEmployeeWithMinSalaryDep(Integer department) {
-        return employeeService.getAllEmployees(1,null).stream()
+        return employeeService.getAllEmployees().stream()
                 .filter(e -> e.getDepartment().equals(department))
                 .min(Comparator.comparingInt(e -> e.getSalary()))
                 .orElse(null);
@@ -24,39 +25,40 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Employee getEmployeeWithMaxSalaryDep(Integer department) {
-        return employeeService.getAllEmployees(1,null).stream()
+        return employeeService.getAllEmployees().stream()
                 .filter(e -> e.getDepartment().equals(department))
                 .max(Comparator.comparingInt(e -> e.getSalary()))
                 .orElse(null);
     }
     @Override
     public Integer getCostsAllEmployees() {
-        Integer sum = employeeService.getAllEmployees(1,null).stream()
-                .map(Employee::getSalary)
-                .flatMapToInt(IntStream::of)
+        Integer sum = employeeService.getAllEmployees().stream()
+                .mapToInt(Employee::getSalary)
                 .sum();
         return sum;
     }
 
     @Override
     public Employee getEmployeeWithMinSalary() {
-        return employeeService.getAllEmployees(1,null).stream()
+        return employeeService.getAllEmployees().stream()
                 .min(Comparator.comparingInt(e -> e.getSalary()))
-                .get();
+                .orElse(null);
     }
 
     @Override
     public Employee getEmployeeWithMaxSalary() {
-        return employeeService.getAllEmployees(1,null).stream()
+        return employeeService.getAllEmployees().stream()
                 .max(Comparator.comparingInt(e -> e.getSalary()))
-                .get();
-    }
-    @Override
-    public List<Employee> getAll(Integer command, Integer department) {
-        return employeeService.getAllEmployees(command, department);
+                .orElse(null);
     }
     @Override
     public String add(String name, String surname, Integer department, Integer salary) {
         return employeeService.addEmployee(name, surname, department, salary);
+    }
+    @Override
+    public List<Employee> getAllEmployeesOfDepartment(Integer department) {
+        return employeeService.getAllEmployees().stream()
+                .filter(e -> e.getDepartment().equals(department))
+                .collect(Collectors.toList());
     }
 }

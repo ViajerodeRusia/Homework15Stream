@@ -7,11 +7,11 @@ import java.util.List;
 
 @Service
 public interface DepartmentService {
-    List<Employee> getAll(Integer command, Integer department);
     String add(String name, String surname, Integer department, Integer salary);
     Integer getCostsAllEmployees();
     Employee getEmployeeWithMinSalary();
     Employee getEmployeeWithMaxSalary();
     Employee getEmployeeWithMinSalaryDep(Integer department);
     Employee getEmployeeWithMaxSalaryDep(Integer department);
+    List<Employee> getAllEmployeesOfDepartment(Integer department);
 }
