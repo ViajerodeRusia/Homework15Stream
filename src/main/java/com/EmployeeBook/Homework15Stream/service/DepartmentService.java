@@ -7,7 +7,6 @@ import java.util.List;
 
 @Service
 public interface DepartmentService {
-    String add(String name, String surname, Integer department, Integer salary);
     Integer getCostsAllEmployees();
     Employee getEmployeeWithMinSalary();
     Employee getEmployeeWithMaxSalary();

@@ -52,10 +52,6 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .orElse(null);
     }
     @Override
-    public String add(String name, String surname, Integer department, Integer salary) {
-        return employeeService.addEmployee(name, surname, department, salary);
-    }
-    @Override
     public List<Employee> getAllEmployeesOfDepartment(Integer department) {
         return employeeService.getAllEmployees().stream()
                 .filter(e -> e.getDepartment().equals(department))

@@ -11,16 +11,16 @@ public class Employee {
     private String surname;
     private Integer department;
     private Integer salary;
-    @EqualsAndHashCode.Exclude
-    @ToString.Include
     @JsonProperty(value = "ID")
-    private static Integer id = 0;
+    @EqualsAndHashCode.Exclude
+    private Integer id;
+    private static Integer counter = 0;
 
     public Employee(String name, String surname, Integer department, Integer salary) {
         this.name = name;
         this.surname = surname;
         this.department = department;
         this.salary = salary;
-        this.id = ++id;
+        this.id = ++counter;
     }
 }
